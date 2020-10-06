@@ -1,8 +1,19 @@
-# uberlog
+# uberlog.mobile
 
-A new Flutter project.
+this is a simple to use, no frills amateur radio logbook for your phone.
+just a slick UI based on flutter
 
-## Getting Started
+read about it on my [blog](http://idoroseman.com/?p=870)
+
+check out the [PC Version](https://bitbucket.org/roseman/uberlog/) 
+
+[contact me](mailto:ido.roseman@gmail.com) if you need help setting it up
+
+73
+
+ido 4x6ub/ac2xs
+
+## Getting Started with flutter
 
 This project is a starting point for a Flutter application.
 
