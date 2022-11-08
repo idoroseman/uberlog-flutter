@@ -1,90 +1,59 @@
 import 'package:flutter/material.dart';
-import 'QSOView.dart';
-import 'InputBox.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:uberlog/screens/wrapper.dart';
+import 'package:provider/provider.dart';
+import 'package:uberlog/services/auth.dart';
+import 'package:uberlog/models/user.dart';
+// based on:
+// https://www.youtube.com/watch?v=EXp0gq9kGxI&feature=emb_logo
+// https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC&index=1
+// https://flutteragency.com/solve-no-firebase-app-has-been-created/
 
-void main() {
+Future<void> main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'UBerLog',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 5,
-        initialIndex: 0,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xFF3F5AA6),
-            title: Text("UBerLog"),
-          ),
-          bottomNavigationBar: menu(),
-          body: TabBarView(
-            children: [
-              QSOView(),
-              Container(child: Icon(Icons.directions_transit)),
-              InputBox(),
-              Container(child: Icon(Icons.directions_bike)),
-              Container(child: Icon(Icons.directions_bike)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget menu() {
-    return Container(
-      color: Color(0xFF3F5AA6),
-      child: TabBar(
-        labelColor: Colors.white,
-        unselectedLabelColor: Colors.white70,
-        indicatorSize: TabBarIndicatorSize.tab,
-        indicatorPadding: EdgeInsets.all(5.0),
-        indicatorColor: Colors.blue,
-        tabs: [
-          Tab(
-            text: "Logbook",
-            icon: Icon(Icons.list),
-          ),
-          Tab(
-            text: "Map",
-            icon: Icon(Icons.map),
-          ),
-          Tab(
-            text: "Add",
-            icon: Icon(Icons.add),
-          ),
-          Tab(
-            text: "Info",
-            icon: Icon(Icons.info),
-          ),
-          Tab(
-            text: "Options",
-            icon: Icon(Icons.settings),
-          ),
-        ],
-      ),
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something Went Wrong');
+        }
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return StreamProvider<User>.value(
+            value: AuthService().user,
+            child: MaterialApp(
+                home: FutureBuilder(
+                    future: _fbApp,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        print(
+                            'you have an error ! ${snapshot.error.toString()}');
+                        return Text("somthing went wrong");
+                      } else if (snapshot.hasData) {
+                        return Wrapper();
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    })),
+          );
+        }
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Text(
+          "Loading",
+          textDirection: TextDirection.ltr,
+        );
+      },
     );
   }
 }

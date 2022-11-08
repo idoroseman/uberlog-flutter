@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "691195795007",
+    "firebase_url": "https://uberlog-1555107254876.firebaseio.com",
+    "project_id": "uberlog-1555107254876",
+    "storage_bucket": "uberlog-1555107254876.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691195795007:android:93ad20da90cd78e1ff0a8a",
+        "android_client_info": {
+          "package_name": "com.idoroseman.uberlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691195795007-66pri32n8d8e52akhn4filoak36q0ad7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYtMdu87JRYTd2o-7heEEnpK7GzEefVlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691195795007-66pri32n8d8e52akhn4filoak36q0ad7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "691195795007-1m88emv7dtkuppahlem66f4g42e9ai6g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.idoroseman.uberlog"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

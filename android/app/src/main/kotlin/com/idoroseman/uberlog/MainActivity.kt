@@ -1,4 +1,4 @@
-package com.example.uberlog
+package com.idoroseman.uberlog
 
 import io.flutter.embedding.android.FlutterActivity
 
